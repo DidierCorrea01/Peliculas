@@ -14,7 +14,7 @@ function Tipos() {
 
   const obtenerTipos = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/tipos");
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/tipos`);
       setTipos(response.data);
     } catch (error) {
       console.error("Error al obtener los tipos:", error);
@@ -24,7 +24,7 @@ function Tipos() {
 
   const agregarTipo = async () => {
     try {
-      await axios.post("http://localhost:3001/tipos", {
+      await axios.post(`${process.env.REACT_APP_API_URL}/tipos`, {
         nombre,
         descripcion,
       });
@@ -40,12 +40,12 @@ function Tipos() {
 
   const eliminarTipo = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/tipos/${id}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/tipos/${id}`);
       obtenerTipos();
-      Swal.fire('Éxito', 'Tipo eliminado correctamente', 'success');
+      Swal.fire("Éxito", "Tipo eliminado correctamente", "success");
     } catch (error) {
-      console.error('Error al eliminar el tipo:', error);
-      Swal.fire('Error', 'Error al eliminar el tipo', 'error');
+      console.error("Error al eliminar el tipo:", error);
+      Swal.fire("Error", "Error al eliminar el tipo", "error");
     }
   };
 
@@ -57,7 +57,7 @@ function Tipos() {
 
   const actualizarTipo = async () => {
     try {
-      await axios.patch(`http://localhost:3001/tipos/${idTipoEditar}`, {
+      await axios.patch(`${process.env.REACT_APP_API_URL}/tipos/${idTipoEditar}`, {
         nombre,
         descripcion,
       });

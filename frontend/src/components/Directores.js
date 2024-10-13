@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import Swal from 'sweetalert2';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 function Directores() {
   const [directores, setDirectores] = useState([]);
-  const [nombre, setNombre] = useState('');
-  const [estado, setEstado] = useState('Activo');
+  const [nombre, setNombre] = useState("");
+  const [estado, setEstado] = useState("Activo");
   const [idDirectorEditar, setIdDirectorEditar] = useState(null);
 
   useEffect(() => {
@@ -14,35 +14,35 @@ function Directores() {
 
   const obtenerDirectores = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/directores');
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/directores`);
       setDirectores(response.data);
     } catch (error) {
-      console.error('Error al obtener los directores:', error);
-      Swal.fire('Error', 'Error al obtener los directores', 'error');
+      console.error("Error al obtener los directores:", error);
+      Swal.fire("Error", "Error al obtener los directores", "error");
     }
   };
 
   const agregarDirector = async () => {
     try {
-      await axios.post('http://localhost:3001/directores', { nombre, estado });
-      setNombre('');
-      setEstado('Activo');
+      await axios.post(`${process.env.REACT_APP_API_URL}/directores`, { nombre, estado });
+      setNombre("");
+      setEstado("Activo");
       obtenerDirectores();
-      Swal.fire('Éxito', 'Director agregado correctamente', 'success');
+      Swal.fire("Éxito", "Director agregado correctamente", "success");
     } catch (error) {
-      console.error('Error al agregar el director:', error);
-      Swal.fire('Error', 'Error al agregar el director', 'error');
+      console.error("Error al agregar el director:", error);
+      Swal.fire("Error", "Error al agregar el director", "error");
     }
   };
 
   const eliminarDirector = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/directores/${id}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/directores/${id}`);
       obtenerDirectores();
-      Swal.fire('Éxito', 'Director eliminado correctamente', 'success');
+      Swal.fire("Éxito", "Director eliminado correctamente", "success");
     } catch (error) {
-      console.error('Error al eliminar el director:', error);
-      Swal.fire('Error', 'Error al eliminar el director', 'error');
+      console.error("Error al eliminar el director:", error);
+      Swal.fire("Error", "Error al eliminar el director", "error");
     }
   };
 
@@ -54,22 +54,22 @@ function Directores() {
 
   const actualizarDirector = async () => {
     try {
-      await axios.patch(`http://localhost:3001/directores/${idDirectorEditar}`, { nombre, estado });
+      await axios.patch(`${process.env.REACT_APP_API_URL}/directores/${idDirectorEditar}`, { nombre, estado });
       setIdDirectorEditar(null);
-      setNombre('');
-      setEstado('Activo');
+      setNombre("");
+      setEstado("Activo");
       obtenerDirectores();
-      Swal.fire('Éxito', 'Director actualizado correctamente', 'success');
+      Swal.fire("Éxito", "Director actualizado correctamente", "success");
     } catch (error) {
-      console.error('Error al actualizar el director:', error);
-      Swal.fire('Error', 'Error al actualizar el director', 'error');
+      console.error("Error al actualizar el director:", error);
+      Swal.fire("Error", "Error al actualizar el director", "error");
     }
   };
 
   const cancelarEdicion = () => {
     setIdDirectorEditar(null);
-    setNombre('');
-    setEstado('Activo');
+    setNombre("");
+    setEstado("Activo");
   };
 
   return (

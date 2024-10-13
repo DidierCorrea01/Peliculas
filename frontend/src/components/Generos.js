@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import Swal from 'sweetalert2';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 function Generos() {
   const [generos, setGeneros] = useState([]);
-  const [nombre, setNombre] = useState('');
-  const [estado, setEstado] = useState('Activo');
-  const [descripcion, setDescripcion] = useState('');
+  const [nombre, setNombre] = useState("");
+  const [estado, setEstado] = useState("Activo");
+  const [descripcion, setDescripcion] = useState("");
   const [idGeneroEditar, setIdGeneroEditar] = useState(null);
 
   useEffect(() => {
@@ -15,36 +15,36 @@ function Generos() {
 
   const obtenerGeneros = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/generos');
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/generos`);
       setGeneros(response.data);
     } catch (error) {
-      console.error('Error al obtener los géneros:', error);
-      Swal.fire('Error', 'Error al obtener los géneros', 'error');
+      console.error("Error al obtener los géneros:", error);
+      Swal.fire("Error", "Error al obtener los géneros", "error");
     }
   };
 
   const agregarGenero = async () => {
     try {
-      await axios.post('http://localhost:3001/generos', { nombre, estado, descripcion });
-      setNombre('');
-      setEstado('Activo');
-      setDescripcion('');
+      await axios.post(`${process.env.REACT_APP_API_URL}/generos`, { nombre, estado, descripcion });
+      setNombre("");
+      setEstado("Activo");
+      setDescripcion("");
       obtenerGeneros();
-      Swal.fire('Éxito', 'Género agregado correctamente', 'success');
+      Swal.fire("Éxito", "Género agregado correctamente", "success");
     } catch (error) {
-      console.error('Error al agregar el género:', error);
-      Swal.fire('Error', 'Error al agregar el género', 'error');
+      console.error("Error al agregar el género:", error);
+      Swal.fire("Error", "Error al agregar el género", "error");
     }
   };
 
   const eliminarGenero = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/generos/${id}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/generos/${id}`);
       obtenerGeneros();
-      Swal.fire('Éxito', 'Género eliminado correctamente', 'success');
+      Swal.fire("Éxito", "Género eliminado correctamente", "success");
     } catch (error) {
-      console.error('Error al eliminar el género:', error);
-      Swal.fire('Error', 'Error al eliminar el género', 'error');
+      console.error("Error al eliminar el género:", error);
+      Swal.fire("Error", "Error al eliminar el género", "error");
     }
   };
 
@@ -57,11 +57,7 @@ function Generos() {
 
   const actualizarGenero = async () => {
     try {
-      await axios.patch(`http://localhost:3001/generos/${idGeneroEditar}`, {
-        nombre,
-        estado,
-        descripcion,
-      });
+      await axios.patch(`${process.env.REACT_APP_API_URL}/generos/${idGeneroEditar}`, { nombre, estado, descripcion });
       setIdGeneroEditar(null);
       setNombre("");
       setEstado("Activo");
@@ -119,10 +115,7 @@ function Generos() {
               <button className="btn btn-success" onClick={actualizarGenero}>
                 Guardar
               </button>
-              <button
-                className="btn btn-secondary ms-2"
-                onClick={cancelarEdicion}
-              >
+              <button className="btn btn-secondary ms-2" onClick={cancelarEdicion}>
                 Cancelar
               </button>
             </>
@@ -149,16 +142,10 @@ function Generos() {
               <td>{genero.estado}</td>
               <td>{genero.descripcion}</td>
               <td>
-                <button
-                  className="btn btn-warning btn-sm me-2"
-                  onClick={() => editarGenero(genero)}
-                >
+                <button className="btn btn-warning btn-sm me-2" onClick={() => editarGenero(genero)}>
                   Editar
                 </button>
-                <button
-                  className="btn btn-danger btn-sm"
-                  onClick={() => eliminarGenero(genero._id)}
-                >
+                <button className="btn btn-danger btn-sm" onClick={() => eliminarGenero(genero._id)}>
                   Eliminar
                 </button>
               </td>

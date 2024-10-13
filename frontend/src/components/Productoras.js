@@ -16,7 +16,7 @@ function Productoras() {
 
   const obtenerProductoras = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/productoras");
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/productoras`);
       setProductoras(response.data);
     } catch (error) {
       console.error("Error al obtener las productoras:", error);
@@ -26,7 +26,7 @@ function Productoras() {
 
   const agregarProductora = async () => {
     try {
-      await axios.post("http://localhost:3001/productoras", {
+      await axios.post(`${process.env.REACT_APP_API_URL}/productoras`, {
         nombre,
         estado,
         slogan,
@@ -46,12 +46,12 @@ function Productoras() {
 
   const eliminarProductora = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/productoras/${id}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/productoras/${id}`);
       obtenerProductoras();
-      Swal.fire('Éxito', 'Productora eliminada correctamente', 'success');
+      Swal.fire("Éxito", "Productora eliminada correctamente", "success");
     } catch (error) {
-      console.error('Error al eliminar la productora:', error);
-      Swal.fire('Error', 'Error al eliminar la productora', 'error');
+      console.error("Error al eliminar la productora:", error);
+      Swal.fire("Error", "Error al eliminar la productora", "error");
     }
   };
 
@@ -66,7 +66,7 @@ function Productoras() {
   const actualizarProductora = async () => {
     try {
       await axios.patch(
-        `http://localhost:3001/productoras/${idProductoraEditar}`,
+        `${process.env.REACT_APP_API_URL}/productoras/${idProductoraEditar}`,
         { nombre, estado, slogan, descripcion }
       );
       setIdProductoraEditar(null);
