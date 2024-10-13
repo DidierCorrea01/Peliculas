@@ -15,7 +15,7 @@ function Generos() {
 
   const obtenerGeneros = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/generos`);
+      const response = await axios.get("http://localhost:3001/generos"); // URL original
       setGeneros(response.data);
     } catch (error) {
       console.error("Error al obtener los géneros:", error);
@@ -25,7 +25,7 @@ function Generos() {
 
   const agregarGenero = async () => {
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/generos`, { nombre, estado, descripcion });
+      await axios.post("http://localhost:3001/generos", { nombre, estado, descripcion });
       setNombre("");
       setEstado("Activo");
       setDescripcion("");
@@ -39,7 +39,7 @@ function Generos() {
 
   const eliminarGenero = async (id) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/generos/${id}`);
+      await axios.delete(`http://localhost:3001/generos/${id}`);
       obtenerGeneros();
       Swal.fire("Éxito", "Género eliminado correctamente", "success");
     } catch (error) {
@@ -57,7 +57,7 @@ function Generos() {
 
   const actualizarGenero = async () => {
     try {
-      await axios.patch(`${process.env.REACT_APP_API_URL}/generos/${idGeneroEditar}`, { nombre, estado, descripcion });
+      await axios.patch(`http://localhost:3001/generos/${idGeneroEditar}`, { nombre, estado, descripcion });
       setIdGeneroEditar(null);
       setNombre("");
       setEstado("Activo");

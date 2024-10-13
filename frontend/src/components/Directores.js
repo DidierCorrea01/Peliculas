@@ -14,7 +14,7 @@ function Directores() {
 
   const obtenerDirectores = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/directores`);
+      const response = await axios.get("http://localhost:3001/directores");
       setDirectores(response.data);
     } catch (error) {
       console.error("Error al obtener los directores:", error);
@@ -24,7 +24,7 @@ function Directores() {
 
   const agregarDirector = async () => {
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/directores`, { nombre, estado });
+      await axios.post("http://localhost:3001/directores", { nombre, estado });
       setNombre("");
       setEstado("Activo");
       obtenerDirectores();
@@ -37,7 +37,7 @@ function Directores() {
 
   const eliminarDirector = async (id) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/directores/${id}`);
+      await axios.delete(`http://localhost:3001/directores/${id}`);
       obtenerDirectores();
       Swal.fire("Éxito", "Director eliminado correctamente", "success");
     } catch (error) {
@@ -54,7 +54,7 @@ function Directores() {
 
   const actualizarDirector = async () => {
     try {
-      await axios.patch(`${process.env.REACT_APP_API_URL}/directores/${idDirectorEditar}`, { nombre, estado });
+      await axios.patch(`http://localhost:3001/directores/${idDirectorEditar}`, { nombre, estado });
       setIdDirectorEditar(null);
       setNombre("");
       setEstado("Activo");

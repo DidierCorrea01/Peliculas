@@ -32,7 +32,7 @@ function Medias() {
 
   const obtenerMedias = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/medias`);
+      const response = await axios.get("http://localhost:3001/medias");
       setMedias(response.data);
     } catch (error) {
       console.error("Error al obtener las medias:", error);
@@ -42,7 +42,7 @@ function Medias() {
 
   const obtenerGeneros = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/generos`);
+      const response = await axios.get("http://localhost:3001/generos");
       setGeneros(response.data);
     } catch (error) {
       console.error("Error al obtener los géneros:", error);
@@ -51,7 +51,7 @@ function Medias() {
 
   const obtenerDirectores = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/directores`);
+      const response = await axios.get("http://localhost:3001/directores");
       setDirectores(response.data);
     } catch (error) {
       console.error("Error al obtener los directores:", error);
@@ -60,7 +60,7 @@ function Medias() {
 
   const obtenerProductoras = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/productoras`);
+      const response = await axios.get("http://localhost:3001/productoras");
       setProductoras(response.data);
     } catch (error) {
       console.error("Error al obtener las productoras:", error);
@@ -69,7 +69,7 @@ function Medias() {
 
   const obtenerTipos = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/tipos`);
+      const response = await axios.get("http://localhost:3001/tipos");
       setTipos(response.data);
     } catch (error) {
       console.error("Error al obtener los tipos:", error);
@@ -94,7 +94,7 @@ function Medias() {
       formData.append("imagen", imagen); // Agrega la imagen al FormData
       formData.append("anio_estreno", anio_estreno);
 
-      await axios.post(`${process.env.REACT_APP_API_URL}/medias`, formData, {
+      await axios.post("http://localhost:3001/medias", formData, {
         headers: {
           "Content-Type": "multipart/form-data", // Configura la cabecera para la subida de archivos
         },
@@ -111,7 +111,7 @@ function Medias() {
 
   const eliminarMedia = async (id) => {
     try {
-      await axios.delete(`<span class="math-inline">{process.env.REACT_APP_API_URL}/medias/</span>{id}`);
+      await axios.delete(`http://localhost:3001/medias/${id}`);
       obtenerMedias();
       Swal.fire("Éxito", "Media eliminada correctamente", "success");
     } catch (error) {
@@ -136,9 +136,7 @@ function Medias() {
 
   const actualizarMedia = async () => {
     try {
-      // En este ejemplo, no se actualiza la imagen al editar.
-      // Si necesitas esa funcionalidad, debes agregarla aquí y en el backend.
-      await axios.patch(`<span class="math-inline">{process.env.REACT_APP_API_URL}/medias/</span>{idMediaEditar}`, {
+      await axios.patch(`http://localhost:3001/medias/${idMediaEditar}`, {
         titulo,
         genero_id,
         director_id,
